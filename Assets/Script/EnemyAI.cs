@@ -20,7 +20,8 @@ public class EnemyAI : MonoBehaviour
               
     void Update()
     {
-        NoticePlayerUpdate();        
+        NoticePlayerUpdate();
+        ChaseUpdate();        
         PatrolUpdate();
     }
 
@@ -48,14 +49,25 @@ public class EnemyAI : MonoBehaviour
 
     private void PatrolUpdate() 
     {
-        if(_navMeshAgent.remainingDistance == 0) 
+        if (!_isPlayerNoticed)
         {
-            PickNewPatrolPoint();
+            if (_navMeshAgent.remainingDistance == 0)
+            {
+                PickNewPatrolPoint();
+            }
         }
     }
 
     private void PickNewPatrolPoint() 
     {
         _navMeshAgent.destination = patrolPoints[Random.Range(0, patrolPoints.Count)].position;
+    }
+
+    private void ChaseUpdate()
+    {
+        if (_isPlayerNoticed)
+        {
+            _navMeshAgent.destination = player.transform.position;
+        }
     }
 }
