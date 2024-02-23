@@ -11,11 +11,7 @@ public class CameraRotation : MonoBehaviour
 
     public float RotationSpeed;
     
-    void Start()
-    {
-        
-    }
-        
+           
     void Update()
     {
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y + Time.deltaTime * RotationSpeed * Input.GetAxis("Mouse X"), 0);
